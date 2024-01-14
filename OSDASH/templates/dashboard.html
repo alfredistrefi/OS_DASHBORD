@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OS Monitoring Dashboard</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1f154f;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        header {
+            background-color: rgb(0, 0, 0);
+            border-radius: 35px;
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+        }
+
+        section {
+            margin: 20px 0;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h2 {
+            color: rgb(255, 255, 255);
+            align-items: center;
+            justify-content: center;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        .status {
+            font-weight: bold;
+            color: #28a745; /* Green color for positive status */
+        }
+
+        .alert {
+            color: #dc3545; /* Red color for alerts or warnings */
+        }
+
+        .hardware-info {
+            font-size: 0.9em;
+            color: rgb(255, 255, 255);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Operating System Monitoring Dashboard</h1>
+    </header>
+
+
+
+    <section>
+        <h2>CPU Usage: {{ cpu_percent }}%</h2>
+        <h2>Memory Usage: {{ memory_info.percent }}%</h2>
+        <h2>Disk Usage: {{ disk_info.percent }}%</h2>
+    </section>
+
+    <section class="hardware-info">
+        <h2>Server Hardware Information:</h2>
+        <p>CPU Information: {{ cpu_info }}</p>
+        <p>RAM Information: {{ ram_info }} bytes</p>
+    </section>
+
+
+    <section>
+        <h2>System Updates:</h2>
+        <p>{{ system_updates }}</p>
+    </section>
+
+    <section>
+        <h2>Update Status:</h2>
+        <p class="status">System is {% if up_to_date %} up-to-date {% else %} not up-to-date {% endif %}</p>
+    </section>
+
+
+
+
+    <section>
+        <h2>Network Usage:</h2>
+        <p>Sent: {{ network_info.bytes_sent }} bytes</p>
+        <p>Received: {{ network_info.bytes_recv }} bytes</p>
+    </section>
+
+    <section>
+        <h2>Top CPU Processes:</h2>
+        <ul>
+            {% for process in top_cpu_processes %}
+                <li>{{ process.name }} (PID: {{ process.pid }}) - CPU: {{ process.cpu_percent }}%, Memory: {{ process.memory_percent }}%</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section>
+        <h2>Top Memory Processes:</h2>
+        <ul>
+            {% for process in top_memory_processes %}
+                <li>{{ process.name }} (PID: {{ process.pid }}) - CPU: {{ process.cpu_percent }}%, Memory: {{ process.memory_percent }}%</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section>
+        <h2>Process Status:</h2>
+        <p class="status">Example Process Status: {% if example_process_running %} Running {% else %} Not Running {% endif %}</p>
+    </section>
+
+    <section>
+        <h2>Security Alerts:</h2>
+        <ul>
+            {% for alert in security_alerts %}
+                <li class="alert">{{ alert }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+
+    <section>
+        <h2>Process List:</h2>
+        <ul>
+            {% for process in process_list %}
+                <li>{{ process.name }} (PID: {{ process.pid }}) - CPU: {{ process.cpu_percent }}%, Memory: {{ process.memory_percent }}%</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    
+    
+</body>
+</html>
